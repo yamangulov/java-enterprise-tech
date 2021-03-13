@@ -1,0 +1,88 @@
+{
+	"info": {
+		"_postman_id": "7bbb1b2b-25f1-402c-b206-bb6b8b9e9933",
+		"name": "Jobs github search",
+		"description": "Коллекция для тестового задания на курсе Skillbox",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Java",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseJobGithub}}?location={{city}}&description=Java",
+					"host": [
+						"{{baseJobGithub}}"
+					],
+					"query": [
+						{
+							"key": "location",
+							"value": "{{city}}"
+						},
+						{
+							"key": "description",
+							"value": "Java"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Python",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseJobGithub}}?location={{city}}&description=Python",
+					"host": [
+						"{{baseJobGithub}}"
+					],
+					"query": [
+						{
+							"key": "location",
+							"value": "{{city}}"
+						},
+						{
+							"key": "description",
+							"value": "Python"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ruby",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseJobGithub}}?location={{city}}&description=Ruby",
+					"host": [
+						"{{baseJobGithub}}"
+					],
+					"query": [
+						{
+							"key": "location",
+							"value": "{{city}}"
+						},
+						{
+							"key": "description",
+							"value": "Ruby"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "baseJobGithub",
+			"value": "https://jobs.github.com/positions.json"
+		}
+	]
+}
