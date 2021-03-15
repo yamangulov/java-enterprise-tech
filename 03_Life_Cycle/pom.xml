@@ -17,7 +17,7 @@
         <pluginRepository>
             <id>apache.snapshots</id>
             <name>apache-plugins</name>
-            <url>https://repository.apache.org/content/repositories/</url>
+            <url>https://repository.apache.org/content/repositories/snapshots/</url>
             <releases>
                 <enabled>false</enabled>
                 <updatePolicy>always</updatePolicy>
@@ -40,7 +40,7 @@
                 <executions>
                     <execution>
                         <id>checkstyle</id>
-                        <phase>generate-sources</phase>
+                        <phase>validate</phase>
                         <goals>
                             <goal>check</goal>
                         </goals>
