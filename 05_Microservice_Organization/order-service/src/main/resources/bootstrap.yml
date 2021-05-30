@@ -4,7 +4,15 @@ spring:
   application:
     name: order-service
   profiles:
-    active: local
+    active: active
+  cloud:
+    config:
+      enabled: true
+#      discovery:
+#        service-id: discovery
+      uri: http://localhost:8888
+      name: discovery
+
 eureka:
   client:
     enabled: true
