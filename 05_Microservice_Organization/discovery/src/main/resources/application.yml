@@ -7,7 +7,7 @@ spring:
     config:
       server:
         native:
-          searchLocations: file:./config/
+          searchLocations: classpath:/config/
 
 
 eureka:
