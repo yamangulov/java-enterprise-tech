@@ -9,7 +9,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableEurekaClient
 @SpringBootApplication
 @EnableJpaRepositories
-@RefreshScope
 public class OrderServiceApplication {
 
     public static void main(String[] args) {
