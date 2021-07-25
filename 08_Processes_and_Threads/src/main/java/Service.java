@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.stream.IntStream;
 
 /**
  * Created by Andrey.Yamangulov
@@ -18,5 +19,25 @@ public class Service {
     public synchronized void debug() {
         System.out.println(count);
         log.forEach(System.out::println);
+    }
+
+    public synchronized static void runThreadsAndCallMethods(int threads, int calls) {
+        Service innerCounter = new Service();
+        IntStream.rangeClosed(1, threads).forEach(
+                thread -> {
+                    Thread t = new Thread(() -> {
+                        IntStream.rangeClosed(1, calls).forEach(
+                                call -> innerCounter.log()
+                        );
+                    }, "T" + thread);
+                    t.start();
+                    try {
+                        t.join();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+        );
+        innerCounter.debug();
     }
 }
