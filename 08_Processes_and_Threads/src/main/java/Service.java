@@ -1,5 +1,7 @@
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -24,13 +26,16 @@ public class Service {
 
     public synchronized static void runThreadsAndCallMethods(int threads, int calls) {
         Service innerCounter = new Service();
+        Lock lock = new ReentrantLock();
         List<Thread> threadList = IntStream.rangeClosed(1, threads).mapToObj(
                 thread -> {
+                    lock.lock();
                     Thread t = new Thread(() -> {
                         IntStream.rangeClosed(1, calls).forEach(
                                 call -> innerCounter.log()
                         );
                     }, "T" + thread);
+                    lock.unlock();
                     t.start();
                     return t;
                 }
