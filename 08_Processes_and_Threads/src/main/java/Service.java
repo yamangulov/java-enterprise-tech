@@ -1,5 +1,6 @@
-import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 /**
@@ -23,7 +24,7 @@ public class Service {
 
     public synchronized static void runThreadsAndCallMethods(int threads, int calls) {
         Service innerCounter = new Service();
-        IntStream.rangeClosed(1, threads).forEach(
+        List<Thread> threadList = IntStream.rangeClosed(1, threads).mapToObj(
                 thread -> {
                     Thread t = new Thread(() -> {
                         IntStream.rangeClosed(1, calls).forEach(
@@ -31,13 +32,16 @@ public class Service {
                         );
                     }, "T" + thread);
                     t.start();
-                    try {
-                        t.join();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                    return t;
                 }
-        );
+        ).collect(Collectors.toList());
+        threadList.forEach(thread -> {
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
         innerCounter.debug();
     }
 }

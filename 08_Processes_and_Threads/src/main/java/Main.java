@@ -10,7 +10,7 @@ public class Main {
         counter.log();
         counter.debug();
 
-        // задача 2 и 3
+        // задача 2
         Service.runThreadsAndCallMethods(3, 10);
     }
 }
