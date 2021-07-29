@@ -29,13 +29,15 @@ public class Service {
         Lock lock = new ReentrantLock();
         List<Thread> threadList = IntStream.rangeClosed(1, threads).mapToObj(
                 thread -> {
-                    lock.lock();
+
                     Thread t = new Thread(() -> {
+                        lock.lock();
                         IntStream.rangeClosed(1, calls).forEach(
                                 call -> innerCounter.log()
                         );
+                        lock.unlock();
                     }, "T" + thread);
-                    lock.unlock();
+
                     t.start();
                     return t;
                 }
