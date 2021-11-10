@@ -1,23 +1,43 @@
 package homework.generics;
 
 public class MyOptional {
-    static MyOptional of(Object value) {
-        return new MyOptional();
+    private static Object value;
+    private static MyOptional optional;
+
+    static <T> MyOptional of(T value) {
+        if (optional == null) {
+            optional = new MyOptional();
+        }
+        if (value == null) {
+            throw new InvalidParameterException();
+        }
+        MyOptional.value = value;
+        return optional;
     }
 
-    static MyOptional ofNullable(Object value) {
-        return new MyOptional();
+    static <T> MyOptional ofNullable(T value) {
+        if (optional == null) {
+            optional = new MyOptional();
+        }
+        if (value == null) {
+            MyOptional.value = null;
+            return optional;
+        }
+        MyOptional.value = value;
+        return optional;
     }
 
-    public Object get() {
-        return new Object();
+    @SuppressWarnings("unchecked")
+    public <T> T get() {
+        return (T) value;
     }
 
     public boolean isPresent() {
-        return true;
+        return MyOptional.value != null;
     }
 
-    public Object orElse(Object other) {
-        return other;
+    @SuppressWarnings("unchecked")
+    public <T> T orElse(T other) {
+        return MyOptional.value == null ? other : (T) value;
     }
 }
