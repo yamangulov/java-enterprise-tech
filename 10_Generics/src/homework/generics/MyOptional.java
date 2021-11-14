@@ -1,43 +1,43 @@
 package homework.generics;
 
-public class MyOptional {
-    private static Object value;
-    private static MyOptional optional;
+public class MyOptional<T> {
+    private T value;
+    private MyOptional<T> optional;
+    private static MyOptional nullOptional;
 
-    static <T> MyOptional of(T value) {
-        if (optional == null) {
-            optional = new MyOptional();
+    static <T> MyOptional<T> of(T value) {
+        if (nullOptional == null) {
+            nullOptional = new MyOptional();
         }
         if (value == null) {
             throw new InvalidParameterException();
         }
-        MyOptional.value = value;
-        return optional;
+        MyOptional<T> newMyOptional = new MyOptional<>();
+        newMyOptional.value = value;
+        return newMyOptional;
     }
 
     static <T> MyOptional ofNullable(T value) {
-        if (optional == null) {
-            optional = new MyOptional();
+        if (nullOptional == null) {
+            nullOptional = new MyOptional();
         }
         if (value == null) {
-            MyOptional.value = null;
-            return optional;
+            return MyOptional.nullOptional;
         }
-        MyOptional.value = value;
-        return optional;
+        MyOptional<T> newMyOptional = new MyOptional<>();
+        newMyOptional.value = value;
+        return newMyOptional;
     }
 
-    @SuppressWarnings("unchecked")
-    public <T> T get() {
-        return (T) value;
+    public T get() {
+        return value;
     }
 
     public boolean isPresent() {
-        return MyOptional.value != null;
+        return this.value != null;
     }
 
-    @SuppressWarnings("unchecked")
-    public <T> T orElse(T other) {
-        return MyOptional.value == null ? other : (T) value;
+    public T orElse(T other) {
+        return this.value == null ? other : (T) value;
     }
 }
