@@ -3,12 +3,9 @@ package homework.generics;
 public class MyOptional<T> {
     private T value;
     private MyOptional<T> optional;
-    private static MyOptional nullOptional;
+    private static MyOptional nullOptional = new MyOptional();
 
     static <T> MyOptional<T> of(T value) {
-        if (nullOptional == null) {
-            nullOptional = new MyOptional();
-        }
         if (value == null) {
             throw new InvalidParameterException();
         }
@@ -18,9 +15,6 @@ public class MyOptional<T> {
     }
 
     static <T> MyOptional ofNullable(T value) {
-        if (nullOptional == null) {
-            nullOptional = new MyOptional();
-        }
         if (value == null) {
             return MyOptional.nullOptional;
         }
